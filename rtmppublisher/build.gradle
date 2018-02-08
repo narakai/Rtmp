@@ -1,0 +1,111 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:27.0.2"
+    implementation 'net.butterflytv.utils:rtmp-client:3.0.1'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+}
+
+//group = GROUP
+//version = LIBRARY_VERSION_NAME
+
+def getBintrayUserProperty() {
+    return hasProperty('bintrayUser') ? bintrayUser : ""
+}
+
+def getBintrayApiKeyProperty() {
+    return hasProperty('bintrayApiKey') ? bintrayApiKey : ""
+}
+
+//bintray {
+//
+//    user = bintrayUserProperty
+//    key = bintrayApiKeyProperty
+//
+//    configurations = ['archives']
+//    pkg {
+//        repo = POM_REPO
+//        name = POM_NAME
+//        desc = POM_DESCRIPTION
+//        websiteUrl = POM_URL
+//        issueTrackerUrl = ISSUE_URL
+//        vcsUrl = POM_SCM_URL
+//        licenses = ['Apache-2.0']
+//        labels = ['android']
+//        publicDownloadNumbers = true
+//    }
+//}
+
+//install {
+//    repositories.mavenInstaller {
+//        pom {
+//            project {
+//                packaging 'aar'
+//                name ARTIFACT_ID
+//                url POM_URL
+//                licenses {
+//                    license {
+//                        name POM_LICENSE_NAME
+//                        url POM_LICENSE_URL
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id POM_DEVELOPER_ID
+//                        name POM_DEVELOPER_NAME
+//                        email POM_DEVELOPER_EMAIL
+//                    }
+//                }
+//                scm {
+//                    connection POM_SCM_CONNECTION
+//                    developerConnection POM_SCM_CONNECTION
+//                    url POM_URL
+//                }
+//            }
+//        }
+//    }
+//}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}
+
+tasks.withType(Javadoc).all {
+    enabled = false
+}
