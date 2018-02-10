@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.widget.media.AndroidMediaController;
@@ -42,7 +42,7 @@ public class PullActivity extends AppCompatActivity {
         url = intent.getStringExtra("rtmp");
         Log.d(TAG, "onCreate: " + url);
 
-        Button button = findViewById(R.id.fullscreen);
+        ImageView button = findViewById(R.id.toggle_camera);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

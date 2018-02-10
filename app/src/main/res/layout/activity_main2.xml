@@ -10,9 +10,11 @@
         android:background="@color/black_overlay"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/fullscreen"
+    <ImageView
+        android:id="@+id/toggle_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fullscreen" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_switch" />
 </RelativeLayout>
