@@ -26,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".PushActivity"/>
+        <activity
+            android:name=".PullActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode"/>
     </application>
 
 </manifest>
