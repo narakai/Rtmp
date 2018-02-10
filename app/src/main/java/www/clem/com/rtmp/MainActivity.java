@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.takusemba.rtmppublisher.Publisher;
@@ -24,6 +25,7 @@ import io.reactivex.disposables.Disposable;
 public class MainActivity extends AppCompatActivity implements PublisherListener {
     GLSurfaceView glView;
     Button mButton;
+    ImageView mImageView;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements PublisherListener
 
         glView = findViewById(R.id.surface_view);
         mButton = findViewById(R.id.toggle_publish);
+        mImageView = findViewById(R.id.toggle_camera);
 
         final String url = "rtmp://119.23.19.90/live/livestream";
 
@@ -46,6 +49,12 @@ public class MainActivity extends AppCompatActivity implements PublisherListener
                 .setListener(MainActivity.this)
                 .build();
 
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                publisher.switchCamera();
+            }
+        });
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,9 +68,15 @@ public class MainActivity extends AppCompatActivity implements PublisherListener
                             @Override
                             public void onNext(Boolean aBoolean) {
                                 if (aBoolean) {
-                                    Log.d(TAG, "start: ");
-                                    Toast.makeText(MainActivity.this, "start", Toast.LENGTH_LONG).show();
-                                    publisher.startPublishing();
+                                    if (!publisher.isPublishing()) {
+                                        publisher.startPublishing();
+                                        mButton.setText(R.string.stop_publishing);
+                                        Toast.makeText(MainActivity.this, "start publishing", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        publisher.stopPublishing();
+                                        mButton.setText(R.string.start_publishing);
+                                        Toast.makeText(MainActivity.this, "stop publishing", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
 
