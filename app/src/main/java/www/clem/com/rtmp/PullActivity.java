@@ -75,11 +75,12 @@ public class PullActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //  videoView.pause();
+          videoView.pause();
     }
 
     @Override
     protected void onDestroy() {
+        videoView.release(true);
         super.onDestroy();
     }
 
