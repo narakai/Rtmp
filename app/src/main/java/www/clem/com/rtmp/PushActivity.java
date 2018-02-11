@@ -88,6 +88,7 @@ public class PushActivity extends AppCompatActivity implements PublisherListener
                                         mButton.setText(R.string.stop_publishing);
                                         Toast.makeText(PushActivity.this, "start publishing", Toast.LENGTH_LONG).show();
                                     } else {
+                                        publisher.stopPublishing();
                                         finish();
                                     }
                                 }
