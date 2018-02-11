@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch ((Integer) view.getTag()){
+                switch ((Integer) view.getTag()) {
                     case 1:
                         Intent intent = new Intent(MainActivity.this, PushActivity.class);
                         intent.putExtra("rtmp", mEditText.getText().toString());
@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         Intent intent2 = new Intent(MainActivity.this, PullActivity.class);
                         intent2.putExtra("rtmp", mEditText.getText().toString());
-                        startActivity(intent2);                        break;
+                        startActivity(intent2);
+                        break;
                 }
             }
         };
